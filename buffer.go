@@ -4,7 +4,7 @@ https://medium.com/learning-the-go-programming-language/encoding-data-with-the-g
 
 */
 
-package buffer
+package xbuffer
 
 type Order int
 
