@@ -1,6 +1,7 @@
 BIN := xbuffer
-
 FLAGS := -ldflags "-s -w"
+REPO := github.com/xgvargas/${BIN}
+VERSION := v0.1.2
 
 ########
 #! podemos usar https://upx.github.io/ para comprimir o executavel se necessario
@@ -37,3 +38,10 @@ deps:
 doc:
 	@echo "Serving documentation on http://localhost:6060"
 	godoc -http=:6060
+
+.PHONY: publish
+publish:
+#	git commit -m"???"
+#	git tag ${VERSION}
+#	git push --tags
+#	GOPROXY=proxy.golang.org go list -m ${REPO}@${VERSION}
