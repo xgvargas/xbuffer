@@ -47,7 +47,7 @@ func NewBufferFrom(data []byte, dir Order) Xbuffer {
 
 func (b *Xbuffer) fixLen(last int) {
 
-	if last >= len(b.buf) {
+	if last > len(b.buf) {
 
 		panic(fmt.Sprintf("Trying to write to address %d of %d bytes long xbuffer", last, len(b.buf)))
 

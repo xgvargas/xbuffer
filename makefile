@@ -1,47 +1,33 @@
 BIN := xbuffer
-FLAGS := -ldflags "-s -w"
 REPO := github.com/xgvargas/${BIN}
-VERSION := v0.1.2
+VERSION := v0.1.3
+
+FLAGS := -ldflags "-s -w"
+
+MAKEFLAGS += --always-make  # this will make ALL targets PHONY
 
 ########
 #! podemos usar https://upx.github.io/ para comprimir o executavel se necessario
 ########
 
-all: build
+all: test
 
-.PHONY: run
-run:
-	go run .
-
-.PHONY: build
-build: deps
-#	GOOS=linux GOARCH=386 go build ${FLAGS} -o ${BIN} ./main.go
-#	GOOS=windows GOARCH=386 go build ${FLAGS} -o ${BIN}.exe ./main.go
-	GOOS=linux go build ${FLAGS} -o ${BIN} ./main.go
-
-.PHONY: clean
-clean:
-	rm -f ${BIN}
-	rm -f ${BIN}.exe
-
-.PHONY: test
 test:
-	go test -v -count 1 ./...
+#	go test -v -count 1 ./...
+	go test -count 1 ./...
 
-.PHONY: deps
+testdev:
+	nodemon -e 'go' --exec 'go test -count 1 ./...' --signal SIGTERM
+
 deps:
-	go generate
 	go mod tidy
-	go mod download
 
-.PHONY: doc
 doc:
 	@echo "Serving documentation on http://localhost:6060"
 	godoc -http=:6060
 
-.PHONY: publish
-publish:
-#	git commit -m"???"
-#	git tag ${VERSION}
-#	git push --tags
+publish: deps
+#	git commit -m"???..."
+#	git tag -a -m "some description..." ${VERSION}
+#	git push && git push --tags
 #	GOPROXY=proxy.golang.org go list -m ${REPO}@${VERSION}
